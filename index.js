@@ -1,6 +1,22 @@
-import data from './workschedule.json' assert { type: 'json' };
+const workSchedule = [
+  'Joao Iglesias',
+  'Matheus Cruz',
+  'Rodrigo Leme',
+  'Tiago Kamegasawa',
+  'Yuri Martins',
+];
 
-const workSchedule = data.workSchedule;
+const comigoNaoMorreu = () => {
+  const filteredSynchronizer = workSchedule.filter(
+    name => name != getTheSynchronizer()
+  );
+  const newSynchronizer =
+    filteredSynchronizer[
+      Math.floor(Math.random() * filteredSynchronizer.length)
+    ];
+
+  updateTankerName(newSynchronizer);
+};
 
 const getDateFromUrl = () => {
   const urlParams = new URLSearchParams(window?.location?.search);
@@ -24,11 +40,11 @@ const generateDate = () => {
   };
 };
 
-const getTheTanker = () => {
+const getTheSynchronizer = () => {
   const { dayOfTheWeek } = generateDate();
-  const theTanker = workSchedule[dayOfTheWeek];
+  const theSynchronizer = workSchedule[dayOfTheWeek];
 
-  updateTankerName(theTanker);
+  return theSynchronizer;
 };
 
 const updateTankerName = (name = 'Você!') => {
@@ -36,4 +52,10 @@ const updateTankerName = (name = 'Você!') => {
   $name.textContent = name;
 };
 
-getTheTanker();
+const start = () => {
+  const theSynchronizer = getTheSynchronizer();
+
+  updateTankerName(theSynchronizer);
+};
+
+start();
